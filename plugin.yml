@@ -1,0 +1,4 @@
+name: CitizenLibrary
+api: [4.0.1]
+main: nooby\CitizeLib\CitizenLibrary
+version: 1.0
