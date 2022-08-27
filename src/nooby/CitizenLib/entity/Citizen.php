@@ -72,7 +72,7 @@ class Citizen {
             1 << EntityMetadataFlags::IMMOBILE;
         $actorMetadata = [
             EntityMetadataProperties::FLAGS => new LongMetadataProperty($flags),
-            EntityMetadataProperties::SCALE => new FloatMetadataProperty(1.2)
+            EntityMetadataProperties::SCALE => new FloatMetadataProperty($this->scale)
         ];
         $packets[] = AddPlayerPacket::create(
             $this->uuid,
