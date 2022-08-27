@@ -9,10 +9,10 @@ final class CitizenSkin {
 	public static function fromDefaultGeometry(string $skinPath): Skin
 	{
 		$img = @imagecreatefrompng($skinPath);
-		$size = @getimagesize($skinPath);
+		
 		$skin_bytes = "";
-		for ($y = 0; $y < $size[1]; $y++) {
-			for ($x = 0; $x < $size[0]; $x++) {
+		for ($y = 0; $y < imagesy($img); $y++) {
+			for ($x = 0; $x < imagesx($img); $x++) {
 				$colorant = @imagecolorat($img, $x, $y);
 				$a = ((~($colorant >> 24)) << 1) & 0xff;
 				$r = ($colorant >> 16) & 0xff;
@@ -28,10 +28,10 @@ final class CitizenSkin {
     public static function fromCustomGeometry(string $skinPath, string $skinGeometryPath): Skin
     {
         $img = imagecreatefrompng($skinPath);
-        $size = getimagesize($skinPath);
+        
         $skin_bytes = "";
-        for ($y = 0; $y < $size[1]; $y++) {
-            for ($x = 0; $x < $size[0]; $x++) {
+        for ($y = 0; $y < imagesy($img); $y++) {
+            for ($x = 0; $x < imagesx($img); $x++) {
                 $colorant = @imagecolorat($img, $x, $y);
                 $a = ((~($colorant >> 24)) << 1) & 0xff;
                 $r = ($colorant >> 16) & 0xff;
