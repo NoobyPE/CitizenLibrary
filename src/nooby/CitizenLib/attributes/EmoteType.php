@@ -44,9 +44,18 @@ final class EmoteType {
     const OVER_HERE = "71721c51-b7d1-46b1-b7ea-eb4c4126c3db";
     const BALLERINA_TWIRL = "79452f7e-ffa0-470f-8283-f5063348471d";
     const GROOVIN = "d863b9cc-9f8c-498b-a8a3-7ebd542cb08e";
-    const ROLF = "6f82688e-e549-408c-946d-f8e99b91808d";
+    const ROFL = "6f82688e-e549-408c-946d-f8e99b91808d";
     const CALLING_A_DRAGON = "9f5d4732-0513-4a0a-8ea2-b6b8d7587e74";
     const WAVING_LIKE_C_3PO = "9f5d4732-0513-4a0a-8ea2-b6b8d7587e74";
     const FEELING_SICK = "bb6f1764-2b0b-4a3a-adfd-3334627cdee4";
     const THINKING = "20bcb500-af82-4c2f-9239-e78191c61375";
+    const THE_PICKAXE = "d7519b5a-45ec-4d27-997c-89d402c6b57f";
+    const THE_ELYTRA = "7393aa53-9145-4e66-b23b-ec86def6c6f2";
+    const PLAYING_ZOMBIE = "5d644007-3cdf-4246-b4ca-cfd7a4318a1c";
+    # Sonic
+    const SONIC_FINGER_WAGGING = "e8a91ad4-6f7a-479e-9556-e1a7c058351b";
+    const SONIC_VICTORY_SPINNING = "cd8c3bc6-f455-43d2-836e-62c1a19474c7";
+    const SONIC_RUNNING = "b8e54924-ec3f-409c-8914-bca61fbe9242";
+    # Ben10
+    const POSSING_LIKE_A_HERO = "7102c0f7-6113-44f5-b37c-4e94841b0e81";
 }
