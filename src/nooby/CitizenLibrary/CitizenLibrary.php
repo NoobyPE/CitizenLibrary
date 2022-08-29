@@ -1,13 +1,13 @@
 <?php
 
-namespace nooby\CitizenLib;
+namespace nooby\CitizenLibrary;
 
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\SingletonTrait;
 
-use nooby\CitizenLib\controller\Controller;
-use nooby\CitizenLib\controller\DefaultController;
-use nooby\CitizenLib\factory\CitizenFactory;
+use nooby\CitizenLibrary\controller\Controller;
+use nooby\CitizenLibrary\controller\DefaultController;
+use nooby\CitizenLibrary\factory\CitizenFactory;
 
 class CitizenLibrary {
 	
