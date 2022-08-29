@@ -1,9 +1,9 @@
 <?php
 
-namespace nooby\CitizenLib\attributes;
+namespace nooby\CitizenLibrary\attributes;
 
 use pocketmine\player\Player;
-use nooby\CitizenLib\entity\Citizen;
+use nooby\CitizenLibrary\entity\Citizen;
 
 abstract class InvokeAttribute {
 	
