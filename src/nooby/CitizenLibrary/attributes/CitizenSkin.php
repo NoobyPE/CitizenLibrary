@@ -1,6 +1,6 @@
 <?php
 
-namespace nooby\CitizenLib\attributes;
+namespace nooby\CitizenLibrary\attributes;
 
 use pocketmine\entity\Skin;
 
