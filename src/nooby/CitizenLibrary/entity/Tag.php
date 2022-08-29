@@ -1,8 +1,8 @@
 <?php
 
-namespace nooby\CitizenLib\entity;
+namespace nooby\CitizenLibrary\entity;
 
-use nooby\CitizenLib\utils\UUID;
+use nooby\CitizenLibrary\utils\UUID;
 use pocketmine\block\VanillaBlocks;
 use pocketmine\entity\Attribute;
 use pocketmine\entity\AttributeMap;
