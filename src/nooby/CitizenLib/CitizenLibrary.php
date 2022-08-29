@@ -27,15 +27,9 @@ class CitizenLibrary {
 		$this->plugin = $plugin;
 		$this->citizenFactory = new CitizenFactory();
 		$plugin->getServer()->getPluginManager()->registerEvents($customController, $plugin);
-	}
+	
 
-    /**
-     * @return CitizenLibrary
-     */
-    public static function getInstance(): CitizenLibrary
-    {
-        return self::$instance;
-    }
+     }
 
     /**
      * @return PluginBase
