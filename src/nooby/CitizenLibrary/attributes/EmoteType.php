@@ -1,6 +1,6 @@
 <?php
 
-namespace nooby\CitizenLib\attributes;
+namespace nooby\CitizenLibrary\attributes;
 
 final class EmoteType {
     const WAVE = "4c8ae710-df2e-47cd-814d-cc7bf21a3d67";
