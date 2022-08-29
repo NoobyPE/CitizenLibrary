@@ -1,6 +1,6 @@
 <?php
-
-namespace nooby\CitizenLib\utils;
+//soon
+namespace nooby\CitizenLibrary\utils;
 
 class SkinCitizen {
   
