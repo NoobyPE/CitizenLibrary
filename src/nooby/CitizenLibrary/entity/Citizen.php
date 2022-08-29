@@ -1,13 +1,13 @@
 <?php
 
-namespace nooby\CitizenLib\entity;
+namespace nooby\CitizenLibrary\entity;
 
-use nooby\CitizenLib\attributes\InvokeAttribute;
-use nooby\CitizenLib\attributes\TagEditor;
-use nooby\CitizenLib\CitizenLibrary;
-use nooby\CitizenLib\task\EmoteRepeatingTask;
-use nooby\CitizenLib\task\EmoteRepeatingTimerTask;
-use nooby\CitizenLib\utils\UUID;
+use nooby\CitizenLibrary\attributes\InvokeAttribute;
+use nooby\CitizenLibrary\attributes\TagEditor;
+use nooby\CitizenLibrary\CitizenLibrary;
+use nooby\CitizenLibrary\task\EmoteRepeatingTask;
+use nooby\CitizenLibrary\task\EmoteRepeatingTimerTask;
+use nooby\CitizenLibrary\utils\UUID;
 use pocketmine\entity\Skin;
 use pocketmine\network\mcpe\convert\SkinAdapterSingleton;
 use pocketmine\network\mcpe\protocol\PlayerListPacket;
