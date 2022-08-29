@@ -1,6 +1,6 @@
 <?php
 
-namespace nooby\CitizenLib\utils;
+namespace nooby\CitizenLibrary\utils;
 
 use Ramsey\Uuid\Uuid as RamseyUuid;
 use Ramsey\Uuid\UuidInterface;
