@@ -1,6 +1,6 @@
 <?php
 
-namespace nooby\CitizenLib\controller;
+namespace nooby\CitizenLibrary\controller;
 
 use pocketmine\event\entity\EntityTeleportEvent;
 use pocketmine\event\Listener;
