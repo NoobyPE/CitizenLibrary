@@ -1,8 +1,8 @@
 <?php
 
-namespace nooby\CitizenLib\factory;
+namespace nooby\CitizenLibrary\factory;
 
-use nooby\CitizenLib\entity\Citizen;
+use nooby\CitizenLibrary\entity\Citizen;
 
 class CitizenFactory {
 
