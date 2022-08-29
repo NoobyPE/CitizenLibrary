@@ -1,10 +1,10 @@
 <?php
 
-namespace nooby\CitizenLib\attributes;
+namespace nooby\CitizenLibrary\attributes;
 
-use nooby\CitizenLib\entity\Tag;
+use nooby\CitizenLibrary\entity\Tag;
 use pocketmine\world\Position;
-use nooby\CitizenLib\entity\Citizen;
+use nooby\CitizenLibrary\entity\Citizen;
 
 class TagEditor {
 	
