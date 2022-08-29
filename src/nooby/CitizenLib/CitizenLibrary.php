@@ -3,13 +3,15 @@
 namespace nooby\CitizenLib;
 
 use pocketmine\plugin\PluginBase;
+use pocketmine\utils\SingletonTrait;
+
 use nooby\CitizenLib\controller\Controller;
 use nooby\CitizenLib\controller\DefaultController;
 use nooby\CitizenLib\factory\CitizenFactory;
 
 class CitizenLibrary {
 	
-	private static CitizenLibrary $instance;
+        use SingletonTrait;
 	
 	private PluginBase $plugin;
 	private CitizenFactory $citizenFactory;
@@ -21,7 +23,7 @@ class CitizenLibrary {
 	
 	public function __construct(PluginBase $plugin, Controller $customController)
 	{
-		self::$instance = $this;
+		self::setInstance(this);
 		$this->plugin = $plugin;
 		$this->citizenFactory = new CitizenFactory();
 		$plugin->getServer()->getPluginManager()->registerEvents($customController, $plugin);
