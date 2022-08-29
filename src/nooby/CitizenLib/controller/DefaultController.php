@@ -1,6 +1,6 @@
 <?php
 
-namespace nooby\CitizenLib\controller;
+namespace nooby\CitizenLibrary\controller;
 
 use pocketmine\event\entity\EntityTeleportEvent;
 use pocketmine\network\mcpe\protocol\InventoryTransactionPacket;
@@ -9,7 +9,8 @@ use pocketmine\player\Player;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\event\server\DataPacketReceiveEvent;
-use nooby\CitizenLib\CitizenLibrary;
+
+use nooby\CitizenLibrary\CitizenLibrary;
 
 class DefaultController extends Controller {
 	
