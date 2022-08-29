@@ -1,8 +1,8 @@
 <?php
 
-namespace nooby\CitizenLib\task;
+namespace nooby\CitizenLibrary\task;
 
-use nooby\CitizenLib\entity\Citizen;
+use nooby\CitizenLibrary\entity\Citizen;
 use pocketmine\network\mcpe\protocol\EmotePacket;
 use pocketmine\scheduler\Task;
 
