@@ -38,7 +38,7 @@ use pocketmine\entity\Entity;
 
 use pocketmine\network\mcpe\protocol\AddPlayerPacket;
 
-use pocketmine\network\mcpe\protocol\UpdateAbilitiesPacket;
+use pocketmine\network\mcpe\protocol\AdventureSettingsPacket;
 
 use pocketmine\network\mcpe\protocol\types\DeviceOS;
 
@@ -55,7 +55,7 @@ class Citizen
 
 {
 
-		use UUID;
+	use UUID;
 
 	
 
@@ -92,8 +92,9 @@ class Citizen
 	
 
 	public Skin $skin;
+	
 
-  public float $yaw;
+        public float $yaw;
 
   
 
@@ -173,8 +174,7 @@ class Citizen
 
       $actorMetadata,
 
-      UpdateAbilitiesPacket::create(0, 0, $this->entityId, []),
-
+      AdventureSettingsPacket::create(0, 0, 0, 0, 0, $this->entityId),
       [],
 
       "",
