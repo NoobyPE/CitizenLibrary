@@ -45,4 +45,5 @@ class CitizenFactory {
 	{
 		return $this->citizens;
 	}
+	
 }
