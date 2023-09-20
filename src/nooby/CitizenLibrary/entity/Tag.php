@@ -137,7 +137,7 @@ class Tag
 
         $packet->pitch = 0.0;
 
-        $packet->yaw = 0.0
+        $packet->yaw = 0.0;
 
         $packet->headYaw = 0.0;
 
