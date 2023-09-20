@@ -49,7 +49,6 @@ final class EmoteType {
     const WAVING_LIKE_C_3PO = "9f5d4732-0513-4a0a-8ea2-b6b8d7587e74";
     const FEELING_SICK = "bb6f1764-2b0b-4a3a-adfd-3334627cdee4";
     const THINKING = "20bcb500-af82-4c2f-9239-e78191c61375";
-    const THE_ELYTRA = "7393aa53-9145-4e66-b23b-ec86def6c6f2";
     const PLAYING_ZOMBIE = "5d644007-3cdf-4246-b4ca-cfd7a4318a1c";
     # Sonic
     const SONIC_FINGER_WAGGING = "e8a91ad4-6f7a-479e-9556-e1a7c058351b";
