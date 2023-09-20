@@ -23,4 +23,5 @@ abstract class InvokeAttribute {
     {
         return $this->citizen;
     }
+    
 }

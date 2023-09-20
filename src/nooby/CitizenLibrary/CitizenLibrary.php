@@ -1,4 +1,5 @@
 <?php
+declare(strict_tyoes=1);
 
 namespace nooby\CitizenLibrary;
 

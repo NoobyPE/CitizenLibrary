@@ -4,7 +4,8 @@ namespace nooby\CitizenLibrary\factory;
 
 use nooby\CitizenLibrary\entity\Citizen;
 
-class CitizenFactory {
+class CitizenFactory 
+{
 
     /**
      * @var Citizen[] $citizens

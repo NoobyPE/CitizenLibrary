@@ -13,9 +13,9 @@ class TagEditor {
     /**
      * @var Tag[] $lines
      */
-	private array $lines = [];
+ 	  private array $lines = [];
 	
-	const ONE_BREAK_LINE = 0.32;
+	  const ONE_BREAK_LINE = 0.32;
 
     public function __construct(Citizen $citizen)
     {
@@ -23,29 +23,29 @@ class TagEditor {
     }
 
     public function size(): int
-	{
-		return count($this->lines);
-	}
+	  {
+		  return count($this->lines);
+	  }
 	
-	public function getLine(int $index): Tag 
-	{
+	  public function getLine(int $index): Tag 
+	  {
 		return $this->lines[$index];
-	}
+	  }
 	
-	public function putLine(string $nameTag, int $separator = 1): TagEditor
-	{
-		$tag = new Tag($this->citizen);
-		$tag->setNameTag($nameTag);
+	  public function putLine(string $nameTag, int $separator = 1): TagEditor
+	  {
+	  	$tag = new Tag($this->citizen);
+		  $tag->setNameTag($nameTag);
 		
-		if ($this->size() == 0) {
-			$position = $this->citizen->getPosition()->add(0, ($this->citizen->getScale() * 1.8), 0);
-		} else {
-            $position = $this->lines[$this->size() - 1]->getPosition()->add(0, (self::ONE_BREAK_LINE * $separator), 0);
-        }
-        $tag->setPosition(new Position($position->x, $position->y, $position->z, $this->citizen->getPosition()->getWorld()));
-        $this->lines[] = $tag;
-        return $this;
-    }
+		  if ($this->size() == 0) {
+		    $position = $this->citizen->getPosition()->add(0, ($this->citizen->getScale() * 1.8), 0);
+	  	} else {
+	  	  $position = $this->lines[$this->size() - 1]->getPosition()->add(0, (self::ONE_BREAK_LINE * $separator), 0);
+	  	}
+      $tag->setPosition(new Position($position->x, $position->y, $position->z, $this->citizen->getPosition()->getWorld()));
+      $this->lines[] = $tag;
+      return $this;
+	  }
     /**
      * @return Tag[]
      */
@@ -69,4 +69,5 @@ class TagEditor {
     {
         $this->citizen = $citizen;
     }
+    
 }

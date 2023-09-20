@@ -52,8 +52,7 @@ use pocketmine\world\Position;
 use Ramsey\Uuid\UuidInterface;
 
 
-class Citizen 
-
+class Citizen
 {
 
 	use UUID;
@@ -95,7 +94,7 @@ class Citizen
 	public Skin $skin;
 	
 
-        public float $yaw;
+  public float $yaw;
 
   
 
@@ -106,33 +105,22 @@ class Citizen
   public float $scale = 1.2;
 
 	public function __construct()
-
 	{
-
 	  $this->uuid = $this->uuid();
-
 		$this->entityId = Entity::nextRuntimeId();
-
 		$this->tagEditor = new TagEditor($this);
-
 	}
 
 	
 
 	public function callInvoke(Player $player): void 
-
 	{
-
 	  $this->invokeAttribute?->invoke($player);
-
 	}
 
 	public function spawnTo(Player $player): void
-
   {
-
     $packets[] = PlayerListPacket::add([PlayerListEntry::createAdditionEntry($this->uuid, $this->entityId, "", SkinAdapterSingleton::get()->toSkinData($this->skin))]);
-
     $flags =
 
      1 << EntityMetadataFlags::CAN_SHOW_NAMETAG |
@@ -140,126 +128,71 @@ class Citizen
      1 << EntityMetadataFlags::ALWAYS_SHOW_NAMETAG |
 
      1 << EntityMetadataFlags::IMMOBILE;
-
     $actorMetadata = [
-
       EntityMetadataProperties::FLAGS => new LongMetadataProperty($flags),
-
       EntityMetadataProperties::SCALE => new FloatMetadataProperty($this->scale)
-
     ];
-
     $packets[] = AddPlayerPacket::create(
-
       $this->uuid,
-
       "",
-
       $this->entityId,
-
       "",
-
       $this->position,
-
       null,
-
       $this->getPitch(),
-
       $this->getYaw(),
-
       $this->getYaw(),
-
       ItemStackWrapper::legacy(ItemStack::null()),
-
       0,
-
       $actorMetadata,
-
       AdventureSettingsPacket::create(0, 0, 0, 0, 0, $this->entityId),
       [],
-
       "",
-
       DeviceOS::UNKNOWN
+    );
 
-     );
-
-     $packets[] = PlayerListPacket::remove([PlayerListEntry::createRemovalEntry($this->uuid)]);
-
-     foreach ($this->tagEditor->getLines() as $tag) {
-
+    $packets[] = PlayerListPacket::remove([PlayerListEntry::createRemovalEntry($this->uuid)]);
+    foreach ($this->tagEditor->getLines() as $tag) {
        $tag->spawnTo($player);
+    }
 
-     }
-
-     if (!in_array(spl_object_hash($player), $this->viewers)) {
-
-       $this->viewers[spl_object_hash($player)] = $player;
-
-     }
-
-     foreach ($packets as $pk) {
-
-       $player->getNetworkSession()->sendDataPacket($pk);
-
-     }
-
+    if (!in_array(spl_object_hash($player), $this->viewers)) {
+      $this->viewers[spl_object_hash($player)] = $player;
+    }
+    foreach ($packets as $pk) {
+      $player->getNetworkSession()->sendDataPacket($pk);
+    }
   }
 
-	
-
 	public function executeEmote(string $emoteId, bool $nonStop, int $seconds): void
-
 	{
-
 	  if ($nonStop == false) {
-
 	    CitizenLibrary::getInstance()->getPlugin()->getScheduler()->scheduleRepeatingTask(new EmoteRepeatingTimerTask($emoteId, $this, $seconds), 20);
-
 	  } else {
-
 	    CitizenLibrary::getInstance()->getPlugin()->getScheduler()->scheduleRepeatingTask(new EmoteRepeatingTask($emoteId, $this, $seconds), 20);
 
 	  }
-
 	}
 
-	
-
 	public function toEntity(): ?Entity 
-
 	{
-
 		return $this->position->getWorld()->getEntity($this->entityId);
-
 	}
 
   public function despairFrom(Player $player): void
-
   {
-
     $packet = new RemoveActorPacket();
-
     $packet->actorUniqueId = $this->entityId;
-
     $player->getNetworkSession()->sendDataPacket($packet);
-
     foreach($this->tagEditor->getLines() as $tag) {
-
       $tag->despairFrom($player);
-
     }
-
     unset($this->viewers[spl_object_hash($player)]);
-
   }
 
   public function getPosition(): Position
-
   {
-
     return $this->position;
-
   }
 
   /**
@@ -269,19 +202,13 @@ class Citizen
     */
 
   public function getViewers(): array
-
   {
-
     return $this->viewers;
-
   }
 
   public function isViewer(Player $player): bool
-
   {
-
     return array_key_exists(spl_object_hash($player), $this->viewers);
-
   }
 
   /**
@@ -291,11 +218,8 @@ class Citizen
     */
 
   public function getEntityId(): int
-
   {
-
     return $this->entityId;
-
   }
 
   /**
@@ -305,11 +229,8 @@ class Citizen
     */
 
   public function getScale(): float
-
   {
-
     return $this->scale;
-
   }
 
     /**
@@ -318,13 +239,10 @@ class Citizen
 
      */
 
-    public function setScale(float $scale): void
-
-    {
-
-        $this->scale = $scale;
-
-    }
+  public function setScale(float $scale): void
+  {
+    $this->scale = $scale;
+  }
 
     /**
 
@@ -332,13 +250,10 @@ class Citizen
 
      */
 
-    public function getSkin(): Skin
-
-    {
-
-        return $this->skin;
-
-    }
+  public function getSkin(): Skin
+  {
+    return $this->skin;
+  }
 
     /**
 
@@ -346,27 +261,20 @@ class Citizen
 
      */
 
-    public function setSkin(Skin $skin): void
-
-    {
-
-        $this->skin = $skin;
-
-    }
+  public function setSkin(Skin $skin): void
+  {
+    $this->skin = $skin;
+  }
 
     /**
 
      * @param Position $position
 
      */
-
-    public function setPosition(Position $position): void
-
-    {
-
-        $this->position = $position;
-
-    }
+  public function setPosition(Position $position): void
+  {
+    $this->position = $position;
+  }
 
     /**
 
@@ -374,13 +282,10 @@ class Citizen
 
      */
 
-    public function getYaw(): float
-
-    {
-
-        return $this->yaw;
-
-    }
+  public function getYaw(): float
+  {
+    return $this->yaw;
+  }
 
     /**
 
@@ -388,13 +293,10 @@ class Citizen
 
      */
 
-    public function setYaw(float $yaw): void
-
-    {
-
-        $this->yaw = $yaw;
-
-    }
+  public function setYaw(float $yaw): void
+  {
+    $this->yaw = $yaw;
+  }
 
     /**
 
@@ -402,13 +304,10 @@ class Citizen
 
      */
 
-    public function getPitch(): float
-
-    {
-
-        return $this->pitch;
-
-    }
+  public function getPitch(): float
+  {
+    return $this->pitch;
+  }
 
     /**
 
@@ -416,13 +315,10 @@ class Citizen
 
      */
 
-    public function setPitch(float $pitch): void
-
-    {
-
-        $this->pitch = $pitch;
-
-    }
+  public function setPitch(float $pitch): void
+  {
+    $this->pitch = $pitch;
+  }
 
     /**
 
@@ -430,13 +326,10 @@ class Citizen
 
      */
 
-    public function getTagEditor(): TagEditor
-
-    {
-
-        return $this->tagEditor;
-
-    }
+  public function getTagEditor(): TagEditor
+  {
+    return $this->tagEditor;
+  }
 
     /**
 
@@ -444,13 +337,10 @@ class Citizen
 
      */
 
-    public function setTagEditor(TagEditor $tagEditor): void
-
-    {
-
-        $this->tagEditor = $tagEditor;
-
-    }
+  public function setTagEditor(TagEditor $tagEditor): void
+  {
+    $this->tagEditor = $tagEditor;
+  }
 
     /**
 
@@ -458,13 +348,10 @@ class Citizen
 
      */
 
-    public function getInvokeAttribute(): ?InvokeAttribute
-
-    {
-
-        return $this->invokeAttribute;
-
-    }
+  public function getInvokeAttribute(): ?InvokeAttribute
+  {
+    return $this->invokeAttribute;
+  }
 
     /**
 
@@ -472,14 +359,9 @@ class Citizen
 
      */
 
-    public function setInvokeAttribute(?InvokeAttribute $invokeAttribute): void
-
-    {
-
-        $this->invokeAttribute = $invokeAttribute;
-
-    }
-
-    
+  public function setInvokeAttribute(?InvokeAttribute $invokeAttribute): void
+  {
+    $this->invokeAttribute = $invokeAttribute;
+  }
 
 }
