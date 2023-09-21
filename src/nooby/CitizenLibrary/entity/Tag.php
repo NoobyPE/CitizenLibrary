@@ -7,7 +7,7 @@ use nooby\CitizenLibrary\utils\UUID;
 use pocketmine\block\VanillaBlocks;
 use pocketmine\entity\Attribute;
 use pocketmine\entity\AttributeMap;
-use pocketmine\network\mcpe\convert\RuntimeBlockMapping;
+use pocketmine\network\mcpe\convert\TypeConverter;
 use pocketmine\network\mcpe\protocol\AddActorPacket;
 use pocketmine\network\mcpe\protocol\UpdateAdventureSettingsPacket;
 use pocketmine\network\mcpe\protocol\RemoveActorPacket;
@@ -97,8 +97,8 @@ class Tag
     $metadata->setGenericFlag(EntityMetadataFlags::ALWAYS_SHOW_NAMETAG, 1);
     $metadata->setGenericFlag(EntityMetadataFlags::CAN_SHOW_NAMETAG, 1);
     $metadata->setLong(EntityMetadataProperties::LEAD_HOLDER_EID, -1);
-    //TODO: find a solution for this
-    //$metadata->setInt(EntityMetadataProperties::VARIANT, RuntimeBlockMapping::getInstance()->toRuntimeId(VanillaBlocks::AIR()->getFullId()));
+    
+    $metadata->setInt(EntityMetadataProperties::VARIANT, TypeConverter::getInstance()->getBlockTranslator()->internalIdToNetworkId(VanillaBlocks::AIR()->getStateId())); //NOTE: I still have no idea what it is for, but they passed me the code xd
     $metadata->setFloat(EntityMetadataProperties::SCALE, 0.01);
     $metadata->setString(EntityMetadataProperties::NAMETAG, $this->getNameTag());
     $metadata->setGenericFlag(EntityMetadataFlags::IMMOBILE, 1);
