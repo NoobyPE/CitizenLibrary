@@ -97,7 +97,8 @@ class Tag
     $metadata->setGenericFlag(EntityMetadataFlags::ALWAYS_SHOW_NAMETAG, 1);
     $metadata->setGenericFlag(EntityMetadataFlags::CAN_SHOW_NAMETAG, 1);
     $metadata->setLong(EntityMetadataProperties::LEAD_HOLDER_EID, -1);
-    $metadata->setInt(EntityMetadataProperties::VARIANT, RuntimeBlockMapping::getInstance()->toRuntimeId(VanillaBlocks::AIR()->getFullId()));
+    //TODO: find a solution for this
+    //$metadata->setInt(EntityMetadataProperties::VARIANT, RuntimeBlockMapping::getInstance()->toRuntimeId(VanillaBlocks::AIR()->getFullId()));
     $metadata->setFloat(EntityMetadataProperties::SCALE, 0.01);
     $metadata->setString(EntityMetadataProperties::NAMETAG, $this->getNameTag());
     $metadata->setGenericFlag(EntityMetadataFlags::IMMOBILE, 1);
