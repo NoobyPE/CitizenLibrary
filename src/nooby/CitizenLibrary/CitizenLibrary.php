@@ -31,17 +31,17 @@ class CitizenLibrary {
 		$plugin->getServer()->getPluginManager()->registerEvents($customController, $plugin);
 	}
 
-    /**
-     * @return PluginBase
-     */
+  /**
+    * @return PluginBase
+    */
   public function getPlugin(): PluginBase
   {
     return $this->plugin;
   }
 
-    /**
-     * @return CitizenFactory
-     */
+  /**
+    * @return CitizenFactory
+    */
   public function getFactory(): CitizenFactory
   {
     return $this->citizenFactory;

@@ -17,4 +17,5 @@ abstract class Controller implements Listener {
   public abstract function handlePlayerQuit(PlayerQuitEvent $event);
 
   public abstract function handleEntityTeleport(EntityTeleportEvent $event);
+  
 }

@@ -57,50 +57,28 @@ class Citizen
 
 	use UUID;
 
-	
-
 	private UuidInterface $uuid;
 
-	
-
 	private int $entityId;
-
-	
 
 	/** @var TagEditor */
 
 	private TagEditor $tagEditor;
 
-	
-
 	private ?InvokeAttribute $invokeAttribute = null;
 
-	
-
 	private Position $position;
-
 	
-
 	/**
-
 	 * @var array Player[]
-
 	 */
-
 	private array $viewers = [];
-
-	
 
 	public Skin $skin;
 	
-
   public float $yaw;
 
-  
-
   public float $pitch;
-
-  
 
   public float $scale = 1.2;
 
@@ -110,8 +88,6 @@ class Citizen
 		$this->entityId = Entity::nextRuntimeId();
 		$this->tagEditor = new TagEditor($this);
 	}
-
-	
 
 	public function callInvoke(Player $player): void 
 	{
@@ -197,11 +173,8 @@ class Citizen
   }
 
   /**
-
     * @return array Players[]
-
     */
-
   public function getViewers(): array
   {
     return $this->viewers;
@@ -213,109 +186,80 @@ class Citizen
   }
 
   /**
-
     * @return int
-
     */
-
   public function getEntityId(): int
   {
     return $this->entityId;
   }
 
   /**
-
     * @return float
-
     */
-
   public function getScale(): float
   {
     return $this->scale;
   }
 
-    /**
-
-     * @param float $scale
-
-     */
-
+  /**
+    * @param float $scale
+    */
   public function setScale(float $scale): void
   {
     $this->scale = $scale;
   }
 
-    /**
-
-     * @return Skin
-
-     */
-
+  /**     
+    * @return Skin
+    */
   public function getSkin(): Skin
   {
     return $this->skin;
   }
 
-    /**
-
-     * @param Skin $skin
-
-     */
-
+  /**
+    * @param Skin $skin
+    */
   public function setSkin(Skin $skin): void
   {
     $this->skin = $skin;
   }
 
-    /**
-
-     * @param Position $position
-
-     */
+  /**
+    * @param Position $position
+    */
   public function setPosition(Position $position): void
   {
     $this->position = $position;
   }
 
-    /**
-
-     * @return float
-
-     */
-
+  /**
+    * @return float
+    */
   public function getYaw(): float
   {
     return $this->yaw;
   }
 
-    /**
-
-     * @param float $yaw
-
-     */
-
+  /**
+    * @param float $yaw
+    */
   public function setYaw(float $yaw): void
   {
     $this->yaw = $yaw;
   }
 
-    /**
-
-     * @return float
-
-     */
-
+  /**
+    * @return float
+    */
   public function getPitch(): float
   {
     return $this->pitch;
   }
 
-    /**
-
-     * @param float $pitch
-
-     */
-
+  /**
+    * @param float $pitch
+    */
   public function setPitch(float $pitch): void
   {
     $this->pitch = $pitch;
