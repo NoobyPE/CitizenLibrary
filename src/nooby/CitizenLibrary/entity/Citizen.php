@@ -19,7 +19,7 @@ use pocketmine\network\mcpe\protocol\types\entity\FloatMetadataProperty;
 use pocketmine\network\mcpe\protocol\types\entity\LongMetadataProperty;
 use pocketmine\network\mcpe\protocol\types\inventory\ItemStack;
 use pocketmine\network\mcpe\protocol\types\PlayerListEntry;
-pocketmine\network\mcpe\protocol\types\command\CommandPermissions;
+use pocketmine\network\mcpe\protocol\types\command\CommandPermissions;
 use pocketmine\player\Player;
 use pocketmine\entity\Entity;
 use pocketmine\network\mcpe\protocol\AddPlayerPacket;
