@@ -19,11 +19,17 @@ use pocketmine\network\mcpe\protocol\types\entity\FloatMetadataProperty;
 use pocketmine\network\mcpe\protocol\types\entity\LongMetadataProperty;
 use pocketmine\network\mcpe\protocol\types\inventory\ItemStack;
 use pocketmine\network\mcpe\protocol\types\PlayerListEntry;
+pocketmine\network\mcpe\protocol\types\command\CommandPermissions;
 use pocketmine\player\Player;
 use pocketmine\entity\Entity;
 use pocketmine\network\mcpe\protocol\AddPlayerPacket;
 use pocketmine\network\mcpe\protocol\UpdateAdventureSettingsPacket;
-use pocketmine\network\mcpe\protocol\types\DeviceOS;
+use pocketmine\network\mcpe\protocol\types\{
+  PlayerPermissions,
+  AbilitiesData,
+  AbilitiesLayer,
+  DeviceOS
+};
 use pocketmine\network\mcpe\protocol\types\inventory\ItemStackWrapper;
 use pocketmine\network\mcpe\protocol\types\entity\{
   EntityMetadataProperties,
@@ -102,7 +108,9 @@ class Citizen
       0,
       $actorMetadata,
       new PropertySyncData([], []),
-      UpdateAdventureSettingsPacket::create(true, true, true, true, true),
+      UpdateAbilitiesPacket::create(new AbilitiesData(CommandPermissions::NORMAL, PlayerPermissions::VISITOR, $this->entityId, [
+        new AbilitiesLayer(AbilitiesLayer::LAYER_BASE, array_fill(0, AbilitiesLayer::NUMBER_OF_ABILITIES, false), 0.0, 0.0)
+      ])),
       [],
       "",
       DeviceOS::UNKNOWN
