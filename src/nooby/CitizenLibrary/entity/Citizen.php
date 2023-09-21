@@ -17,7 +17,7 @@ use nooby\CitizenLibrary\utils\UUID;
 
 use pocketmine\entity\Skin;
 
-use pocketmine\network\mcpe\convert\SkinAdapterSingleton;
+use pocketmine\network\mcpe\convert\LegacySkinAdapter;
 
 use pocketmine\network\mcpe\protocol\PlayerListPacket;
 
@@ -120,7 +120,8 @@ class Citizen
 
 	public function spawnTo(Player $player): void
   {
-    $packets[] = PlayerListPacket::add([PlayerListEntry::createAdditionEntry($this->uuid, $this->entityId, "", SkinAdapterSingleton::get()->toSkinData($this->skin))]);
+    $skinAdapter = new LegacySkinAdapter();
+    $packets[] = PlayerListPacket::add([PlayerListEntry::createAdditionEntry($this->uuid, $this->entityId, "", $skinAdapter->toSkinData($this->skin))]);
     $flags =
 
      1 << EntityMetadataFlags::CAN_SHOW_NAMETAG |
