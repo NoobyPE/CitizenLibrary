@@ -5,39 +5,24 @@ namespace nooby\CitizenLibrary\entity;
 use nooby\CitizenLibrary\utils\UUID;
 
 use pocketmine\block\VanillaBlocks;
-
 use pocketmine\entity\Attribute;
-
 use pocketmine\entity\AttributeMap;
-
 use pocketmine\network\mcpe\convert\RuntimeBlockMapping;
-
 use pocketmine\network\mcpe\protocol\AddActorPacket;
-
-use pocketmine\network\mcpe\protocol\AdventureSettingsPacket;
-
+use pocketmine\network\mcpe\protocol\UpdateAdventureSettingsPacket;
 use pocketmine\network\mcpe\protocol\RemoveActorPacket;
-
 use pocketmine\network\mcpe\protocol\SetActorDataPacket;
-
 use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataCollection;
-
 use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataFlags;
-
 use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataProperties;
-
 use pocketmine\network\mcpe\protocol\types\entity\Attribute as NetworkAttribute;
-
+use pocketmine\network\mcpe\protocol\types\entity\PropertySyncData;
 use pocketmine\player\Player;
-
 use pocketmine\Server;
-
 use pocketmine\entity\Entity;
-
 use pocketmine\world\Position;
 
 use Ramsey\Uuid\UuidInterface;
-
 
 class Tag
 {
@@ -58,7 +43,6 @@ class Tag
 
   public function __construct(Citizen $citizen)
   {
-
     $this->citizen = $citizen;
     $this->entityId = Entity::nextRuntimeId();
     $this->attributeMap = new AttributeMap();
@@ -104,7 +88,7 @@ class Tag
     $packet->yaw = 0.0;
     $packet->headYaw = 0.0;
     $packet->bodyYaw = 0.0;
-    $packet->attributes = [AdventureSettingsPacket::create(0, 0, 0, 0, 0, $this->entityId)];
+    $packet->attributes = [UpdateAdventureSettingsPacket::create(true, true, true, true, true)];
     $packet->attributes = array_map(function(Attribute $attr): NetworkAttribute{
       return new NetworkAttribute($attr->getId(), $attr->getMinValue(), $attr->getMaxValue(), $attr->getValue(), $attr->getDefaultValue());
         }, $this->attributeMap->getAll());
@@ -119,6 +103,8 @@ class Tag
     $metadata->setGenericFlag(EntityMetadataFlags::IMMOBILE, 1);
     $metadata->setFloat(EntityMetadataProperties::BOUNDING_BOX_WIDTH, 0.0);
     $packet->metadata = $metadata->getAll();
+    $packet->syncedProperties = new PropertySyncData([], [], $this->entityId);
+    $packet->links = [];
     $player->getNetworkSession()->sendDataPacket($packet);
   }
 
