@@ -23,7 +23,7 @@ use pocketmine\network\mcpe\protocol\types\command\CommandPermissions;
 use pocketmine\player\Player;
 use pocketmine\entity\Entity;
 use pocketmine\network\mcpe\protocol\AddPlayerPacket;
-use pocketmine\network\mcpe\protocol\UpdateAdventureSettingsPacket;
+use pocketmine\network\mcpe\protocol\UpdateAbilitiesPacket;
 use pocketmine\network\mcpe\protocol\types\{
   PlayerPermissions,
   AbilitiesData,
