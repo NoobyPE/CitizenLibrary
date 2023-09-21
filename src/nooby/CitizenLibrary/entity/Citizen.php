@@ -4,49 +4,31 @@ declare(strict_types=1);
 namespace nooby\CitizenLibrary\entity;
 
 use nooby\CitizenLibrary\attributes\InvokeAttribute;
-
 use nooby\CitizenLibrary\attributes\TagEditor;
-
 use nooby\CitizenLibrary\CitizenLibrary;
-
 use nooby\CitizenLibrary\task\EmoteRepeatingTask;
-
 use nooby\CitizenLibrary\task\EmoteRepeatingTimerTask;
-
 use nooby\CitizenLibrary\utils\UUID;
 
 use pocketmine\entity\Skin;
-
 use pocketmine\network\mcpe\convert\LegacySkinAdapter;
-
 use pocketmine\network\mcpe\protocol\PlayerListPacket;
-
 use pocketmine\network\mcpe\protocol\RemoveActorPacket;
-
 use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataFlags;
-
 use pocketmine\network\mcpe\protocol\types\entity\FloatMetadataProperty;
-
 use pocketmine\network\mcpe\protocol\types\entity\LongMetadataProperty;
-
 use pocketmine\network\mcpe\protocol\types\inventory\ItemStack;
-
 use pocketmine\network\mcpe\protocol\types\PlayerListEntry;
-
 use pocketmine\player\Player;
-
 use pocketmine\entity\Entity;
-
 use pocketmine\network\mcpe\protocol\AddPlayerPacket;
-
-use pocketmine\network\mcpe\protocol\AdventureSettingsPacket;
-
+use pocketmine\network\mcpe\protocol\UpdateAdventureSettingsPacket;
 use pocketmine\network\mcpe\protocol\types\DeviceOS;
-
 use pocketmine\network\mcpe\protocol\types\inventory\ItemStackWrapper;
-
-use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataProperties;
-
+use pocketmine\network\mcpe\protocol\types\entity\{
+  EntityMetadataProperties,
+  PropertySyncData
+};
 use pocketmine\world\Position;
 
 use Ramsey\Uuid\UuidInterface;
@@ -99,12 +81,9 @@ class Citizen
     $skinAdapter = new LegacySkinAdapter();
     $packets[] = PlayerListPacket::add([PlayerListEntry::createAdditionEntry($this->uuid, $this->entityId, "", $skinAdapter->toSkinData($this->skin))]);
     $flags =
-
-     1 << EntityMetadataFlags::CAN_SHOW_NAMETAG |
-
-     1 << EntityMetadataFlags::ALWAYS_SHOW_NAMETAG |
-
-     1 << EntityMetadataFlags::IMMOBILE;
+      1 << EntityMetadataFlags::CAN_SHOW_NAMETAG |
+      1 << EntityMetadataFlags::ALWAYS_SHOW_NAMETAG |
+      1 << EntityMetadataFlags::IMMOBILE;
     $actorMetadata = [
       EntityMetadataProperties::FLAGS => new LongMetadataProperty($flags),
       EntityMetadataProperties::SCALE => new FloatMetadataProperty($this->scale)
@@ -122,7 +101,8 @@ class Citizen
       ItemStackWrapper::legacy(ItemStack::null()),
       0,
       $actorMetadata,
-      AdventureSettingsPacket::create(0, 0, 0, 0, 0, $this->entityId),
+      new PropertySyncData([], []),
+      UpdateAdventureSettingsPacket::create(true, true, true, true, true),
       [],
       "",
       DeviceOS::UNKNOWN
