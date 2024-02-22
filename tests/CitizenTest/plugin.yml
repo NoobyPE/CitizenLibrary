@@ -4,4 +4,10 @@ version: 0.0.1
 main: iSrDxv\CitizenTest\Main
 api: 5.10.0
 src-namespace-prefix: iSrDxv\CitizenTest
+commands:
+  
+permissions:
+  npc.cmd:
+    default: true
+    description: Send NPD
 ...

@@ -1,0 +1,8 @@
+{
+    "name": "nooby/CitizenLibrary",
+    "require-dev": {
+        "pocketmine/pocketmine-mp": "^5.11",
+        "phpstan/phpstan": "^1.10"
+    },
+    "require": {}
+}
