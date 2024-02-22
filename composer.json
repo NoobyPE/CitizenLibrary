@@ -1,5 +1,7 @@
 {
     "name": "nooby/citizen-library",
+    "version": "2.2.1",
+    "type": "library",
     "require-dev": {
         "pocketmine/pocketmine-mp": "^5.11",
         "phpstan/phpstan": "^1.10"
