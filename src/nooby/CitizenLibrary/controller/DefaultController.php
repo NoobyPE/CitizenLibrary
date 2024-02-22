@@ -11,6 +11,7 @@ use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\event\server\DataPacketReceiveEvent;
 
 use nooby\CitizenLibrary\CitizenLibrary;
+use nooby\CitizenLibrary\entity\Citizen;
 
 class DefaultController extends Controller {
 	
@@ -18,7 +19,7 @@ class DefaultController extends Controller {
 	{
 		$player = $event->getPlayer();
 		$citizenFactory = CitizenLibrary::getInstance();
-		$citizens = array_filter($citizenFactory->getFactory()->getCitizens(), function ($citizen) use($player){
+		$citizens = array_filter($citizenFactory->getFactory()->getCitizens(), function (Citizen $citizen) use($player){
 			return $citizen->getPosition()->getWorld()->getFolderName() === $player->getPosition()->getWorld()->getFolderName();
 		});
 		foreach($citizens as $citizen){
@@ -31,7 +32,7 @@ class DefaultController extends Controller {
 		$player = $event->getPlayer();
 		
 		$citizenFactory = CitizenLibrary::getInstance();
-		$citizens = array_filter($citizenFactory->getFactory()->getCitizens(), function ($citizen) use($player){
+		$citizens = array_filter($citizenFactory->getFactory()->getCitizens(), function (Citizen $citizen) use($player){
 			return $citizen->getPosition()->getWorld()->getFolderName() === $player->getPosition()->getWorld()->getFolderName();
 		});
 		foreach($citizens as $citizen){
@@ -48,16 +49,16 @@ class DefaultController extends Controller {
 		
 		$origin = $event->getFrom();
 		$target = $event->getTo();
-    $citizenFactory = CitizenLibrary::getInstance();
+		$citizenFactory = CitizenLibrary::getInstance();
 
-		$citizensDespair = array_filter($citizenFactory->getFactory()->getCitizens(), function ($citizen) use($origin){
+		$citizensDespair = array_filter($citizenFactory->getFactory()->getCitizens(), function (Citizen $citizen) use($origin){
 			return $citizen->getPosition()->getWorld()->getFolderName() === $origin->getWorld()->getFolderName();
 		});
 		foreach($citizensDespair as $citizen){
 			$citizen->despairFrom($player);
 		}
 		
-		$citizensSpawn = array_filter($citizenFactory->getFactory()->getCitizens(), function ($citizen) use($target){
+		$citizensSpawn = array_filter($citizenFactory->getFactory()->getCitizens(), function (Citizen $citizen) use($target){
 			return $citizen->getPosition()->getWorld()->getFolderName() === $target->getWorld()->getFolderName();
 		});
 		foreach($citizensSpawn as $citizen){

@@ -14,6 +14,7 @@ use pocketmine\entity\Skin;
 use pocketmine\network\mcpe\convert\LegacySkinAdapter;
 use pocketmine\network\mcpe\protocol\PlayerListPacket;
 use pocketmine\network\mcpe\protocol\RemoveActorPacket;
+use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataCollection;
 use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataFlags;
 use pocketmine\network\mcpe\protocol\types\entity\FloatMetadataProperty;
 use pocketmine\network\mcpe\protocol\types\entity\LongMetadataProperty;
@@ -28,7 +29,7 @@ use pocketmine\network\mcpe\protocol\types\{
   PlayerPermissions,
   AbilitiesData,
   AbilitiesLayer,
-  DeviceOS
+  DeviceOS,
 };
 use pocketmine\network\mcpe\protocol\types\inventory\ItemStackWrapper;
 use pocketmine\network\mcpe\protocol\types\entity\{
@@ -42,7 +43,6 @@ use Ramsey\Uuid\UuidInterface;
 
 class Citizen
 {
-
 	use UUID;
 
 	private UuidInterface $uuid;
@@ -109,7 +109,12 @@ class Citizen
       $actorMetadata,
       new PropertySyncData([], []),
       UpdateAbilitiesPacket::create(new AbilitiesData(CommandPermissions::NORMAL, PlayerPermissions::VISITOR, $this->entityId, [
-        new AbilitiesLayer(AbilitiesLayer::LAYER_BASE, array_fill(0, AbilitiesLayer::NUMBER_OF_ABILITIES, false), 0.0, 0.0)
+        new AbilitiesLayer(
+          AbilitiesLayer::LAYER_BASE, 
+          array_fill(0, AbilitiesLayer::NUMBER_OF_ABILITIES, false), 
+          0.0,
+          0.0
+        )
       ])),
       [],
       "",
@@ -253,44 +258,36 @@ class Citizen
     $this->pitch = $pitch;
   }
 
-    /**
 
-     * @return TagEditor
-
-     */
+  /**
+    * @return TagEditor
+    */
 
   public function getTagEditor(): TagEditor
   {
     return $this->tagEditor;
   }
 
-    /**
-
-     * @param TagEditor $tagEditor
-
-     */
+  /**
+    * @param TagEditor $tagEditor
+    */
 
   public function setTagEditor(TagEditor $tagEditor): void
   {
     $this->tagEditor = $tagEditor;
   }
 
-    /**
-
-     * @return InvokeAttribute|null
-
-     */
-
+  /**
+    * @return InvokeAttribute|null
+    */
   public function getInvokeAttribute(): ?InvokeAttribute
   {
     return $this->invokeAttribute;
   }
 
-    /**
-
-     * @param InvokeAttribute|null $invokeAttribute
-
-     */
+  /**
+    * @param InvokeAttribute|null $invokeAttribute
+    */
 
   public function setInvokeAttribute(?InvokeAttribute $invokeAttribute): void
   {

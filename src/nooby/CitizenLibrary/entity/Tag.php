@@ -26,7 +26,6 @@ use Ramsey\Uuid\UuidInterface;
 
 class Tag
 {
-
   use UUID;
 
   private Citizen $citizen;
@@ -90,7 +89,7 @@ class Tag
     $packet->bodyYaw = 0.0;
     $packet->attributes = [UpdateAdventureSettingsPacket::create(true, true, true, true, true)];
     $packet->attributes = array_map(function(Attribute $attr): NetworkAttribute{
-      return new NetworkAttribute($attr->getId(), $attr->getMinValue(), $attr->getMaxValue(), $attr->getValue(), $attr->getDefaultValue());
+      return new NetworkAttribute($attr->getId(), $attr->getMinValue(), $attr->getMaxValue(), $attr->getValue(), $attr->getDefaultValue(), []);
         }, $this->attributeMap->getAll());
     $metadata = new EntityMetadataCollection();
     $metadata->setGenericFlag(EntityMetadataFlags::FIRE_IMMUNE, true);
