@@ -1,5 +1,5 @@
 {
-    "name": "nooby/CitizenLibrary",
+    "name": "nooby/citizen-library",
     "require-dev": {
         "pocketmine/pocketmine-mp": "^5.11",
         "phpstan/phpstan": "^1.10"
