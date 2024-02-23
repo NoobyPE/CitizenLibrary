@@ -64,9 +64,9 @@ class Citizen
 
 	public Skin $skin;
 	
-  public float $yaw;
+  public float $yaw = 0.0;
 
-  public float $pitch;
+  public float $pitch = 0.0;
 
   public float $scale = 1.2;
 
