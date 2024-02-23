@@ -6,5 +6,8 @@
         "pocketmine/pocketmine-mp": "^5.11",
         "phpstan/phpstan": "^1.10"
     },
-    "require": {}
+    "require": {},
+    "autoload": {
+        "psr-4": {"": ["src"]}
+    }
 }
