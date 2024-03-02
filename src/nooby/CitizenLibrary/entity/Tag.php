@@ -97,7 +97,7 @@ class Tag
     $metadata->setFloat(EntityMetadataProperties::SCALE, 0.01);
     $metadata->setFloat(EntityMetadataProperties::BOUNDING_BOX_WIDTH, 0.0);
     $metadata->setString(EntityMetadataProperties::NAMETAG, $this->getNameTag());
-    $player->getNetworkSession()->sendDataPacket(AddActorPacket::create($this->entityId, $this->entityId, EntityIds::PLAYER, $this->getPosition()->asVector3(), $this->getLocation()->asVector3(), $this->citizen->getPitch(), $this->citizen->getYaw(), $this->citizen->getYaw(), 0, [], $metadata->getAll(), new PropertySyncData([], [], $this->entityId), []));
+    $player->getNetworkSession()->sendDataPacket(AddActorPacket::create($this->entityId, $this->entityId, EntityIds::FALLING_BLOCK, $this->getPosition()->asVector3(), $this->getLocation()->asVector3(), $this->citizen->getPitch(), $this->citizen->getYaw(), $this->citizen->getYaw(), 0, [], $metadata->getAll(), new PropertySyncData([], [], $this->entityId), []));
   }
 
   /**
