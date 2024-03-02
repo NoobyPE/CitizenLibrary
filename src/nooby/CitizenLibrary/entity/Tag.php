@@ -19,7 +19,13 @@ use pocketmine\network\mcpe\protocol\types\entity\Attribute as NetworkAttribute;
 use pocketmine\network\mcpe\protocol\types\entity\PropertySyncData;
 use pocketmine\player\Player;
 use pocketmine\Server;
-use pocketmine\entity\Entity;
+use pocketmine\entity\{
+  Entity,
+  Location
+};
+use pocketmine\math\Vector3;
+use pocketmine\network\mcpe\protocol\AddPlayerPacket;
+use pocketmine\network\mcpe\protocol\types\entity\EntityIds;
 use pocketmine\world\Position;
 
 use Ramsey\Uuid\UuidInterface;
@@ -36,7 +42,7 @@ class Tag
 
   private UuidInterface $uuid;
 
-  private Position $position;
+  private Location $location;
 
   private AttributeMap $attributeMap;
 
@@ -77,35 +83,21 @@ class Tag
 
   public function spawnTo(Player $player): void
   {
-    $packet = new AddActorPacket();
-    $packet->actorRuntimeId = $this->entityId;
-    $packet->actorUniqueId = $this->entityId;
-    $packet->type = "minecraft:player";
-    $packet->position = $this->position->asVector3();
-    $packet->motion = null;
-    $packet->pitch = 0.0;
-    $packet->yaw = 0.0;
-    $packet->headYaw = 0.0;
-    $packet->bodyYaw = 0.0;
-    $packet->attributes = [UpdateAdventureSettingsPacket::create(true, true, true, true, true)];
-    $packet->attributes = array_map(function(Attribute $attr): NetworkAttribute{
+    $attributes = [UpdateAdventureSettingsPacket::create(true, true, true, true, true)];
+    $attributes = array_map(function(Attribute $attr): NetworkAttribute{
       return new NetworkAttribute($attr->getId(), $attr->getMinValue(), $attr->getMaxValue(), $attr->getValue(), $attr->getDefaultValue(), []);
         }, $this->attributeMap->getAll());
     $metadata = new EntityMetadataCollection();
     $metadata->setGenericFlag(EntityMetadataFlags::FIRE_IMMUNE, true);
     $metadata->setGenericFlag(EntityMetadataFlags::ALWAYS_SHOW_NAMETAG, 1);
     $metadata->setGenericFlag(EntityMetadataFlags::CAN_SHOW_NAMETAG, 1);
+    $metadata->setGenericFlag(EntityMetadataFlags::IMMOBILE, 1);
     $metadata->setLong(EntityMetadataProperties::LEAD_HOLDER_EID, -1);
-    
     $metadata->setInt(EntityMetadataProperties::VARIANT, TypeConverter::getInstance()->getBlockTranslator()->internalIdToNetworkId(VanillaBlocks::AIR()->getStateId())); //NOTE: I still have no idea what it is for, but they passed me the code xd
     $metadata->setFloat(EntityMetadataProperties::SCALE, 0.01);
-    $metadata->setString(EntityMetadataProperties::NAMETAG, $this->getNameTag());
-    $metadata->setGenericFlag(EntityMetadataFlags::IMMOBILE, 1);
     $metadata->setFloat(EntityMetadataProperties::BOUNDING_BOX_WIDTH, 0.0);
-    $packet->metadata = $metadata->getAll();
-    $packet->syncedProperties = new PropertySyncData([], [], $this->entityId);
-    $packet->links = [];
-    $player->getNetworkSession()->sendDataPacket($packet);
+    $metadata->setString(EntityMetadataProperties::NAMETAG, $this->getNameTag());
+    $player->getNetworkSession()->sendDataPacket(AddActorPacket::create($this->entityId, $this->entityId, EntityIds::PLAYER, $this->getPosition()->asVector3(), $this->getLocation()->asVector3(), 0, 0, 0, 0, $attributes, $metadata->getAll(), new PropertySyncData([], [], $this->entityId), []));
   }
 
   /**
@@ -137,16 +129,21 @@ class Tag
     */
   public function getPosition(): Position
   {
-    return $this->position;
+    return $this->location->asPosition();
   }
 
   /**
-    * @param Position $position
+    * @param Location $location
     */
-  public function setPosition(Position $position): self
+  public function setLocation(Position $location): self
   {
-    $this->position = $position;
+    $this->location = $location;
     return $this;
+  }
+
+  function getLocation(): Location
+  {
+    return $this->location->asLocation();
   }
 
 }
