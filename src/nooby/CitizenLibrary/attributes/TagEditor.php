@@ -5,6 +5,7 @@ namespace nooby\CitizenLibrary\attributes;
 use nooby\CitizenLibrary\entity\Tag;
 use pocketmine\world\Position;
 use nooby\CitizenLibrary\entity\Citizen;
+use pocketmine\entity\Location;
 
 class TagEditor {
 	
@@ -42,7 +43,7 @@ class TagEditor {
 	  } else {
 	    $position = $this->lines[$this->size() - 1]->getPosition()->add(0, (self::ONE_BREAK_LINE * $separator), 0);
 	  }
-    $tag->setPosition(new Position($position->x, $position->y, $position->z, $this->citizen->getPosition()->getWorld()));
+    $tag->setLocation(new Location($position->x, $position->y, $position->z, $this->citizen->getPosition()->getWorld(), $this->citizen->getYaw(), $this->citizen->getPitch()));
     $this->lines[] = $tag;
     return $this;
 	}
