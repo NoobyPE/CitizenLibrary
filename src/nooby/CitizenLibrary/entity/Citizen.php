@@ -108,14 +108,14 @@ class Citizen
       0,
       $actorMetadata,
       new PropertySyncData([], []),
-      UpdateAbilitiesPacket::create(CommandPermissions::NORMAL, PlayerPermissions::VISITOR, $this->entityId, [
+      UpdateAbilitiesPacket::create(new AbilitiesData(CommandPermissions::NORMAL, PlayerPermissions::VISITOR, $this->entityId, [
         new AbilitiesLayer(
           AbilitiesLayer::LAYER_BASE, 
           array_fill(0, AbilitiesLayer::NUMBER_OF_ABILITIES, false), 
           0.0,
           0.0
         )
-      ]),
+      ])),
       [],
       "",
       DeviceOS::UNKNOWN
