@@ -8,14 +8,15 @@ use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\event\server\DataPacketReceiveEvent;
 
-abstract class Controller implements Listener {
+abstract class Controller implements Listener
+{
 
-  public abstract function handleDataPacketReceive(DataPacketReceiveEvent $event);
+	public abstract function handleDataPacketReceive(DataPacketReceiveEvent $event);
 
-  public abstract function handlePlayerJoin(PlayerJoinEvent $event);
+	public abstract function handlePlayerJoin(PlayerJoinEvent $event);
 
-  public abstract function handlePlayerQuit(PlayerQuitEvent $event);
+	public abstract function handlePlayerQuit(PlayerQuitEvent $event);
 
-  public abstract function handleEntityTeleport(EntityTeleportEvent $event);
-  
+	public abstract function handleEntityTeleport(EntityTeleportEvent $event);
+
 }

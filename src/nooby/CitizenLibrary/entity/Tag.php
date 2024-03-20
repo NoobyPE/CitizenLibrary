@@ -9,6 +9,11 @@ use pocketmine\entity\Attribute;
 use pocketmine\entity\AttributeMap;
 use pocketmine\network\mcpe\convert\TypeConverter;
 use pocketmine\network\mcpe\protocol\AddActorPacket;
+use pocketmine\network\mcpe\protocol\types\entity\ByteMetadataProperty;
+use pocketmine\network\mcpe\protocol\types\entity\FloatMetadataProperty;
+use pocketmine\network\mcpe\protocol\types\entity\IntMetadataProperty;
+use pocketmine\network\mcpe\protocol\types\entity\LongMetadataProperty;
+use pocketmine\network\mcpe\protocol\types\entity\StringMetadataProperty;
 use pocketmine\network\mcpe\protocol\UpdateAdventureSettingsPacket;
 use pocketmine\network\mcpe\protocol\RemoveActorPacket;
 use pocketmine\network\mcpe\protocol\SetActorDataPacket;
@@ -26,6 +31,7 @@ use pocketmine\entity\{
 use pocketmine\math\Vector3;
 use pocketmine\network\mcpe\protocol\AddPlayerPacket;
 use pocketmine\network\mcpe\protocol\types\entity\EntityIds;
+use pocketmine\world\particle\FloatingTextParticle;
 use pocketmine\world\Position;
 
 use Ramsey\Uuid\UuidInterface;
@@ -58,10 +64,10 @@ class Tag
   {
     $packet = new SetActorDataPacket();
     $packet->actorRuntimeId = $this->entityId;
+	$packet->syncedProperties = new PropertySyncData([], []);
     $metadata = new EntityMetadataCollection();
+	$metadata->setByte(EntityMetadataFlags::ALWAYS_SHOW_NAMETAG, 1);
     $metadata->setString(EntityMetadataProperties::NAMETAG, $this->nameTag);
-    $metadata->setGenericFlag(EntityMetadataFlags::ALWAYS_SHOW_NAMETAG, 1);
-    $metadata->setGenericFlag(EntityMetadataFlags::CAN_SHOW_NAMETAG, 1);
     $packet->metadata = $metadata->getAll();
     $player->getNetworkSession()->sendDataPacket($packet);
   }
@@ -83,21 +89,21 @@ class Tag
 
   public function spawnTo(Player $player): void
   {
-    /*$attributes = array_map(function(Attribute $attr): NetworkAttribute{
-      return new NetworkAttribute($attr->getId(), $attr->getMinValue(), $attr->getMaxValue(), $attr->getValue(), $attr->getDefaultValue(), []);
-        }, $this->attributeMap->getAll());
-    array_push($attributes, UpdateAdventureSettingsPacket::create(true, true, true, true, true));*/
-    $metadata = new EntityMetadataCollection();
-    $metadata->setGenericFlag(EntityMetadataFlags::FIRE_IMMUNE, true);
-    $metadata->setGenericFlag(EntityMetadataFlags::ALWAYS_SHOW_NAMETAG, 1);
-    $metadata->setGenericFlag(EntityMetadataFlags::CAN_SHOW_NAMETAG, 1);
-    $metadata->setGenericFlag(EntityMetadataFlags::IMMOBILE, 1);
-    $metadata->setLong(EntityMetadataProperties::LEAD_HOLDER_EID, -1);
-    $metadata->setInt(EntityMetadataProperties::VARIANT, TypeConverter::getInstance()->getBlockTranslator()->internalIdToNetworkId(VanillaBlocks::AIR()->getStateId())); //NOTE: I still have no idea what it is for, but they passed me the code xd
-    $metadata->setFloat(EntityMetadataProperties::SCALE, 0.01);
-    $metadata->setFloat(EntityMetadataProperties::BOUNDING_BOX_WIDTH, 0.0);
-    $metadata->setString(EntityMetadataProperties::NAMETAG, $this->getNameTag());
-    $player->getNetworkSession()->sendDataPacket(AddActorPacket::create($this->entityId, $this->entityId, EntityIds::FALLING_BLOCK, $this->getPosition()->asVector3(), $this->getLocation()->asVector3(), $this->citizen->getPitch(), $this->citizen->getYaw(), $this->citizen->getYaw(), 0, [], $metadata->getAll(), new PropertySyncData([], [], $this->entityId), []));
+	  $actorFlags = (
+		  1 << EntityMetadataFlags::NO_AI
+	  );
+
+	  $actorMetadata = [
+		  EntityMetadataProperties::FLAGS => new LongMetadataProperty($actorFlags),
+		  EntityMetadataProperties::SCALE => new FloatMetadataProperty(0.01),
+		  EntityMetadataProperties::BOUNDING_BOX_WIDTH => new FloatMetadataProperty(0.0),
+		  EntityMetadataProperties::BOUNDING_BOX_HEIGHT => new FloatMetadataProperty(0.0),
+		  EntityMetadataProperties::NAMETAG => new StringMetadataProperty($this->nameTag),
+		  EntityMetadataProperties::VARIANT => new IntMetadataProperty(TypeConverter::getInstance()->getBlockTranslator()->internalIdToNetworkId(VanillaBlocks::AIR()->getStateId())),
+		  EntityMetadataProperties::ALWAYS_SHOW_NAMETAG => new ByteMetadataProperty(1),
+	  ];
+
+	  $player->getNetworkSession()->sendDataPacket(AddActorPacket::create($this->entityId, $this->entityId, EntityIds::FALLING_BLOCK, $this->getPosition()->asVector3(), null, 0, 0, 0, 0, [], $actorMetadata, new PropertySyncData([], []), []));
   }
 
   /**
